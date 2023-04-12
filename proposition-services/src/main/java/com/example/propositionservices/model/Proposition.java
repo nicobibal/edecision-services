@@ -17,11 +17,12 @@ public class Proposition {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idProposition;
-
     private String libelle;
-
     private String description;
-
+    private Long idTeam;
+    private Long idProject;
+    private Boolean isForCommunity;
+    @Enumerated(EnumType.STRING)
     private Statut statut;
 
 }

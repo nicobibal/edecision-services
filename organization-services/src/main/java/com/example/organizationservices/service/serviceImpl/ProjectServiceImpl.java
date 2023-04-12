@@ -1,8 +1,10 @@
 package com.example.organizationservices.service.serviceImpl;
 
 import com.example.organizationservices.model.Project;
+import com.example.organizationservices.model.Team;
 import com.example.organizationservices.repositories.ProjectRepository;
 import com.example.organizationservices.service.ProjectService;
+import com.example.organizationservices.service.TeamService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +15,7 @@ import java.util.List;
 public class ProjectServiceImpl implements ProjectService {
 
     private final ProjectRepository projectRepository;
+    private final TeamService teamService;
 
 
     @Override
@@ -39,5 +42,13 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     public void deleteProject(Long code) {
         projectRepository.deleteById(code);
+    }
+
+    @Override
+    public Project addTeamToProject(Long teamId, Long projectId){
+        Team team = teamService.getTeam(teamId);
+        Project project = this.getProject(projectId);
+        project.addTeam(team);
+        return projectRepository.save(project);
     }
 }

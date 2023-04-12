@@ -23,13 +23,18 @@ public class Project {
     private Long id;
     private String title;
     private String description;
-
-    @ManyToMany
-    @JoinTable( name = "association_project_team",
-            joinColumns = @JoinColumn( name = "id_project" ),
-            inverseJoinColumns = @JoinColumn( name = "id_team" ) )
+    @OneToMany(mappedBy ="project")
     private List<Team> teams = new ArrayList<>();
 
+    public void addTeam(Team team){
+        this.teams.add(team);
+        if(team.getProject() != null){
+            team.setProject(this);
+        }
+        else{
+            System.out.println("La team à déjà un projet");
+        }
 
+    }
 
 }

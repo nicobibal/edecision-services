@@ -1,7 +1,6 @@
 package com.example.organizationservices.service;
 
 import com.example.organizationservices.model.Member;
-import com.example.organizationservices.model.Project;
 
 import java.util.List;
 
@@ -15,4 +14,6 @@ public interface MemberService {
     Member updateMember(Member member, Long Id);
 
     void deleteMember(Long code);
+
+
 }

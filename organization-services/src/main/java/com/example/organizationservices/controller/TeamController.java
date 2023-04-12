@@ -1,5 +1,6 @@
 package com.example.organizationservices.controller;
 
+import com.example.organizationservices.model.Member;
 import com.example.organizationservices.model.Team;
 import com.example.organizationservices.service.TeamService;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +21,7 @@ public class TeamController {
     @GetMapping(path = "{id}")
     public Team getTeam(@PathVariable Long id){ return teamService.getTeam(id); }
 
-    @PostMapping(path = "{code}")
+    @PostMapping
     public Team save(@RequestBody Team team){ return teamService.saveTeam(team); }
 
     @PutMapping(path = "{code}")
@@ -28,4 +29,14 @@ public class TeamController {
 
     @DeleteMapping(path = "{code}")
     public void deleteTeam(@PathVariable Long code){ teamService.deleteTeam(code); }
+
+    @PostMapping(path = "/{teamId}/member/{memberId}")
+    public Team addMemberToTeam(@PathVariable Long teamId, @PathVariable Long memberId){
+            return teamService.addMemberToTeam(teamId,memberId);
+    }
+
+    @GetMapping(path = "/{teamId}/members")
+    public List<Member> getMembersInTeam(@PathVariable Long teamId){
+        return teamService.getMembersInTeam(teamId);
+    }
 }

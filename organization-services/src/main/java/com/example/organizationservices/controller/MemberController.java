@@ -1,9 +1,7 @@
 package com.example.organizationservices.controller;
 
 import com.example.organizationservices.model.Member;
-import com.example.organizationservices.model.Team;
 import com.example.organizationservices.service.MemberService;
-import com.example.organizationservices.service.TeamService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,7 +20,7 @@ public class MemberController {
     @GetMapping(path = "{id}")
     public Member getMember(@PathVariable Long id){ return memberService.getMember(id); }
 
-    @PostMapping(path = "{code}")
+    @PostMapping
     public Member save(@RequestBody Member member){ return memberService.saveMember(member); }
 
     @PutMapping(path = "{code}")
@@ -30,4 +28,5 @@ public class MemberController {
 
     @DeleteMapping(path = "{code}")
     public void deleteMember(@PathVariable Long code){ memberService.deleteMember(code); }
+
 }

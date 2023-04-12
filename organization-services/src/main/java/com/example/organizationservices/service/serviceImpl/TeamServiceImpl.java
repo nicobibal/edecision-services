@@ -1,7 +1,9 @@
 package com.example.organizationservices.service.serviceImpl;
 
+import com.example.organizationservices.model.Member;
 import com.example.organizationservices.model.Team;
 import com.example.organizationservices.repositories.TeamRepository;
+import com.example.organizationservices.service.MemberService;
 import com.example.organizationservices.service.TeamService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,6 +15,7 @@ import java.util.List;
 public class TeamServiceImpl implements TeamService {
 
     private final TeamRepository teamRepository;
+    private final MemberService memberService;
     @Override
     public List<Team> getTeams() {
         return teamRepository.findAll();
@@ -38,5 +41,19 @@ public class TeamServiceImpl implements TeamService {
     public void deleteTeam(Long code) {
         teamRepository.deleteById(code);
     }
+
+    @Override
+    public Team addMemberToTeam(Long teamId, Long memberId){
+        Team team = getTeam(teamId);
+        Member member = memberService.getMember(memberId);
+        team.addMember(member);
+        return teamRepository.save(team);
+    }
+
+    public List<Member> getMembersInTeam(Long teamId) {
+        return this.getTeam(teamId).getMembers();
+    }
+
+
 
 }

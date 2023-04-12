@@ -2,8 +2,6 @@ package com.example.organizationservices.service.serviceImpl;
 
 import com.example.organizationservices.model.Member;
 import com.example.organizationservices.repositories.MemberRepository;
-import com.example.organizationservices.repositories.MemberRepository;
-import com.example.organizationservices.service.MemberService;
 import com.example.organizationservices.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,6 +13,7 @@ import java.util.List;
 public class MemberServiceImpl implements MemberService {
 
     private final MemberRepository memberRepository;
+
     @Override
     public List<Member> getMembers() {
         return memberRepository.findAll();
@@ -40,5 +39,7 @@ public class MemberServiceImpl implements MemberService {
     public void deleteMember(Long code) {
         memberRepository.deleteById(code);
     }
+
+
 
 }
