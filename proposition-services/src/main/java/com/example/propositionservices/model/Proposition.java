@@ -19,10 +19,19 @@ public class Proposition {
     private Long idProposition;
     private String libelle;
     private String description;
+    private Long idCreator;
     private Long idTeam;
     private Long idProject;
     private Boolean isForCommunity;
     @Enumerated(EnumType.STRING)
     private Statut statut;
 
+    public Proposition(String libelle, String description, Long idCreator, Long idTeam) {
+        this.libelle = libelle;
+        this.description = description;
+        this.idCreator = idCreator;
+        this.idTeam = idTeam;
+        this.isForCommunity = false;
+        this.statut = Statut.PROPOSE;
+    }
 }

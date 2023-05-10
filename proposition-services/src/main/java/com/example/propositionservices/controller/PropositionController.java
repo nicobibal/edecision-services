@@ -1,5 +1,6 @@
 package com.example.propositionservices.controller;
 
+import com.example.propositionservices.model.DTO.PropositionDTO;
 import com.example.propositionservices.model.Proposition;
 import com.example.propositionservices.service.PropositionService;
 import org.springframework.web.bind.annotation.*;
@@ -7,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/")
+@RequestMapping("/api/propositions")
 public class PropositionController {
 
     private final PropositionService propositionService;
@@ -17,28 +18,39 @@ public class PropositionController {
         this.propositionService = propositionService;
     }
 
-    @GetMapping(path = "/propositions")
+    @GetMapping
     public List<Proposition> getPropositions(){
         return propositionService.getPropositions();
     }
 
-    @GetMapping(path = "/propositions/{id}")
+    @GetMapping(path = "/{id}")
     public Proposition getProposition(@PathVariable Long id){
         return propositionService.getProposition(id);
     }
 
-    @PostMapping(path = "/propositions")
-    public Proposition save(@RequestBody Proposition proposition){
-        return propositionService.saveProposition(proposition);
+    @GetMapping(path = "/team/{teamId}")
+    public List<Proposition> getPropositionsTeam(@PathVariable Long teamId){
+        return propositionService.getPropositionTeam(teamId);
     }
 
-    @PutMapping(path = "/propositions/{id}")
+    @GetMapping(path = "/project/{projectId}")
+    public List<Proposition> getPropositionsProject(@PathVariable Long projectId){
+        return propositionService.getPropositionProject(projectId);
+    }
+    @PostMapping
+    public Proposition save(@RequestBody PropositionDTO propositionDTO){
+        return propositionService.saveProposition(propositionDTO);
+    }
+
+    @PutMapping(path = "/{id}")
     public Proposition updateProposition(@PathVariable Long id, @RequestBody Proposition proposition){
         return propositionService.updateProposition(proposition,id);
     }
 
-    @DeleteMapping(path = "/propositions/{id}")
+    @DeleteMapping(path = "/{id}")
     public void deleteProposition(@PathVariable Long id){
         propositionService.deleteProposition(id);
     }
+
+
 }

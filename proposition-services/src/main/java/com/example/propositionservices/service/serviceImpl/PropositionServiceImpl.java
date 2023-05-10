@@ -1,9 +1,12 @@
 package com.example.propositionservices.service.serviceImpl;
 
+import com.example.propositionservices.model.DTO.PropositionDTO;
 import com.example.propositionservices.model.Proposition;
+import com.example.propositionservices.model.Statut;
 import com.example.propositionservices.repository.PropositionRepository;
 import com.example.propositionservices.service.PropositionService;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,6 +15,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PropositionServiceImpl implements PropositionService {
 
+        private final ModelMapper modelMapper;
         private final PropositionRepository propositionRepository;
 
 
@@ -26,7 +30,9 @@ public class PropositionServiceImpl implements PropositionService {
         }
 
         @Override
-        public Proposition saveProposition(Proposition proposition) {
+        public Proposition saveProposition(PropositionDTO propositionDTO) {
+                Proposition proposition = this.modelMapper.map(propositionDTO, Proposition.class);
+                proposition.setStatut(Statut.PROPOSE);
                 return propositionRepository.save(proposition);
         }
 
@@ -39,5 +45,15 @@ public class PropositionServiceImpl implements PropositionService {
         @Override
         public void deleteProposition(Long id) {
                 propositionRepository.deleteById(id);
+        }
+
+        @Override
+        public List<Proposition> getPropositionProject(Long projectId) {
+                return propositionRepository.findPropositionsByIdProject(projectId);
+        }
+
+        @Override
+        public List<Proposition> getPropositionTeam(Long teamId) {
+                return propositionRepository.findPropositionsByIdTeam(teamId);
         }
 }
